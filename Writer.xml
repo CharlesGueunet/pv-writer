@@ -1,0 +1,48 @@
+<ServerManagerConfiguration>
+  <ProxyGroup name="filters">
+   <SourceProxy name="Writer" class="vtkGenericWriter" label="Writer">
+     <Documentation
+        long_help="Create a copy of the data on disk"
+        short_help="Tee-like plugin">
+        Similarly to the tee command on linux, this plugin create a copy
+        of the input data-set on the disk.
+        The plugin will try to save the data-set with the writer corresponding
+        to the given extension if any, otherwise it will use the writer corresponding
+        to the input datatype.
+     </Documentation>
+
+     <InputProperty
+        name="Input"
+        command="SetInputConnection">
+           <ProxyGroupDomain name="groups">
+             <Group name="sources"/>
+             <Group name="filters"/>
+           </ProxyGroupDomain>
+           <DataTypeDomain name="input_type">
+             <DataType value="vtkDataSet"/>
+           </DataTypeDomain>
+      </InputProperty>
+
+      <StringVectorProperty
+          name="FileName"
+          command="SetFileName"
+          number_of_elements="1">
+          <FileListDomain name="files"/>
+          <Documentation>
+              The path / name of the output file.
+          </Documentation>
+          <Hints>
+              <UseDirectoryName/>
+              <AcceptAnyFile/>
+          </Hints>
+      </StringVectorProperty>
+
+
+      <Hints>
+          <ShowInMenu category="Common" />
+      </Hints>
+
+   </SourceProxy>
+ </ProxyGroup>
+</ServerManagerConfiguration>
+
