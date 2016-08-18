@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 2.8.8 FATAL_ERROR)
+project(writer)
 
 if (NOT ParaView_BINARY_DIR)
   find_package(ParaView REQUIRED)
@@ -21,7 +22,7 @@ set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DWRITER_DEBUG")
 # manager classes to build
 # this plugin can be loaded on the server side
 
-ADD_PARAVIEW_PLUGIN(Writer "1.0"
+add_paraview_plugin(Writer "1.0"
     SERVER_MANAGER_XML Writer.xml
     SERVER_MANAGER_SOURCES vtkGenericWriter.cxx)
 

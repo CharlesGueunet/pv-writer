@@ -36,27 +36,27 @@ protected:
 
   virtual int FillOutputPortInformation(int port, vtkInformation* info);
 
-  int RequestData(vtkInformation* request,
+  int RequestData(vtkInformation*        request,
                   vtkInformationVector** inputVector,
-                  vtkInformationVector* outputVector);
+                  vtkInformationVector*  outputVector);
 
   // methods
-  template <class TWriter>
-  void WriteXMLFile(vtkDataSet* inputData) const;
+  template <class TWriter> void WriteXMLFile(vtkDataSet* inputData) const;
 
   // fields
 
   std::string FileName;
 
 private:
-  vtkGenericWriter(const vtkGenericWriter&);  // Not implemented.
-  void operator=(const vtkGenericWriter&);  // Not implemented.
+  vtkGenericWriter(const vtkGenericWriter&); // Not implemented.
+  void operator=(const vtkGenericWriter&);   // Not implemented.
 };
 
 // Template functions
-template <class TWriter> 
-void vtkGenericWriter::WriteXMLFile(vtkDataSet* inputData) const {
-  vtkSmartPointer<TWriter> writer=vtkSmartPointer<TWriter>::New();
+template <class TWriter>
+void vtkGenericWriter::WriteXMLFile(vtkDataSet* inputData) const
+{
+  vtkSmartPointer<TWriter> writer = vtkSmartPointer<TWriter>::New();
   writer->SetFileName(FileName.c_str());
   writer->SetInputData(inputData);
 
