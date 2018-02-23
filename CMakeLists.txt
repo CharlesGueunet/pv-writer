@@ -15,6 +15,13 @@ endif()
 
 include(ParaViewPlugins)
 
+# Set a predefined build type
+if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
+   message(STATUS "Setting build type to 'Release'.")
+   set(CMAKE_BUILD_TYPE Release CACHE STRING "Choose the type of build." FORCE)
+   set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug" "Release")
+endif()
+
 # for the code to be aware of the debug mode
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DWRITER_DEBUG")
 
