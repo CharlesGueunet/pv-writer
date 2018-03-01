@@ -48,6 +48,26 @@ int vtkGenericWriter::FillOutputPortInformation(int port, vtkInformation* info)
   return 1;
 }
 
+void vtkGenericWriter::WriteCSVFile(vtkDataSet* inputData) const
+{
+  vtkPointData* inputPointData = inputData->GetPointData();
+  const int numberOfArrays = inputPointData->GetNumberOfArrays();
+
+  vtkSmartPointer<vtkTable> table=vtkSmartPointer<vtkTable>::New();
+  for(int i = 0; i < numberOfArrays; ++i) {
+    vtkDataArray* arr = inputPointData->GetArray(i);
+
+    if(arr)
+      table->AddColumn(arr);
+  }
+
+  vtkSmartPointer<vtkDelimitedTextWriter> writer = vtkSmartPointer<vtkDelimitedTextWriter>::New();
+  writer->SetFileName(FileName.c_str());
+  writer->SetInputData(table);
+
+  writer->Write();
+}
+
 int vtkGenericWriter::RequestData(vtkInformation*        request,
                                   vtkInformationVector** inputVector,
                                   vtkInformationVector*  outputVector)
@@ -125,6 +145,10 @@ int vtkGenericWriter::RequestData(vtkInformation*        request,
   else if (fileExtension == ".vtp")
     {
       WriteXMLFile<vtkXMLPolyDataWriter>(inputData);
+    }
+  else if (fileExtension == ".csv")
+    {
+      WriteCSVFile(inputData);
     }
   else
     {
