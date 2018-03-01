@@ -17,6 +17,10 @@
 #include "vtkXMLImageDataWriter.h"
 #include "vtkXMLPolyDataWriter.h"
 #include "vtkXMLUnstructuredGridWriter.h"
+#include "vtkDelimitedTextWriter.h"
+#include "vtkTable.h"
+#include "vtkPointData.h"
+#include "vtkDataArray.h"
 
 class VTK_EXPORT vtkGenericWriter : public vtkDataSetAlgorithm
 {
@@ -42,6 +46,7 @@ protected:
 
   // methods
   template <class TWriter> void WriteXMLFile(vtkDataSet* inputData) const;
+  void WriteCSVFile(vtkDataSet* inputData) const;
 
   // fields
 
