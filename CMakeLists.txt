@@ -33,3 +33,4 @@ add_paraview_plugin(Writer "1.0"
     SERVER_MANAGER_XML Writer.xml
     SERVER_MANAGER_SOURCES vtkGenericWriter.cxx)
 
+ install(TARGETS Writer DESTINATION ${CMAKE_INSTALL_PREFIX})
