@@ -27,7 +27,7 @@ class VTK_EXPORT vtkGenericWriter : public vtkDataSetAlgorithm
 public:
   static vtkGenericWriter* New();
   vtkTypeMacro(vtkGenericWriter, vtkDataSetAlgorithm);
-  void PrintSelf(ostream& os, vtkIndent indent);
+  void PrintSelf(ostream& os, vtkIndent indent) override;
 
   vtkSetMacro(FileName, std::string);
   vtkGetMacro(FileName, std::string);
@@ -38,11 +38,11 @@ protected:
 
   // VTK Interface
 
-  virtual int FillOutputPortInformation(int port, vtkInformation* info);
+  virtual int FillOutputPortInformation(int port, vtkInformation* info) override;
 
   int RequestData(vtkInformation*        request,
                   vtkInformationVector** inputVector,
-                  vtkInformationVector*  outputVector);
+                  vtkInformationVector*  outputVector) override;
 
   // methods
   template <class TWriter> void WriteXMLFile(vtkDataSet* inputData) const;
@@ -63,6 +63,7 @@ void vtkGenericWriter::WriteXMLFile(vtkDataSet* inputData) const
 {
   vtkSmartPointer<TWriter> writer = vtkSmartPointer<TWriter>::New();
   writer->SetFileName(FileName.c_str());
+  writer->SetDataModeToAscii();
   writer->SetInputData(inputData);
 
   writer->Write();
